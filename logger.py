@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+import logging
+
+
+def setup_logger() -> logging.Logger:
+    logger = logging.getLogger("wolf_app")
+    logger.setLevel(logging.INFO)
+
+    handler = logging.StreamHandler()
+    formatter = logging.Formatter(
+        "%(asctime)s | %(levelname)s | %(message)s"
+    )
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+
+    return logger
