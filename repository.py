@@ -13,7 +13,8 @@ class GeneRepository:
             id INT AUTO_INCREMENT PRIMARY KEY,
             OverlapGenes TEXT,
             Pvalue FLOAT,
-            FDR FLOAT
+            FDR FLOAT,
+            SourceMethod VARCHAR(64)
         )
         """
         with self.db.get_connection() as conn:
@@ -26,17 +27,18 @@ class GeneRepository:
         table_name: str,
         overlap_genes: str,
         pvalue: float,
-        fdr: float
+        fdr: float,
+        sourcemethod: str
     ) -> None:
         query = f"""
         INSERT INTO `{table_name}`
-        (OverlapGenes, Pvalue, FDR)
-        VALUES (%s, %s, %s)
+        (OverlapGenes, Pvalue, FDR, SourceMethod)
+        VALUES (%s, %s, %s, %s)
         """
 
         with self.db.get_connection() as conn:
             cursor = conn.cursor()
-            cursor.execute(query, (overlap_genes, pvalue, fdr))
+            cursor.execute(query, (overlap_genes, pvalue, fdr, sourcemethod))
             conn.commit()
 
     def search_by_gene(
@@ -45,7 +47,7 @@ class GeneRepository:
         gene: str
     ) -> List[Tuple]:
         query = f"""
-        SELECT OverlapGenes, Pvalue, FDR
+        SELECT OverlapGenes, Pvalue, FDR, SourceMethod
         FROM `{table_name}`
         WHERE OverlapGenes LIKE %s
         """
