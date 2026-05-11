@@ -16,10 +16,18 @@ class UploadService:
             return "GuidedAssembly"
         raise ValueError(f"Cannot detect source method from filename: {filename}")
 
+    def detect_final_status(self,filepath:str)->str:
+        parent_folder=Path(filepath).parent.name
+        if parent_folder.endswith("Final"):
+            return "Final"
+        return "Not final"
+
     def upload_file(self, table_name: str, filepath: str) -> None:
         self.repository.create_table(table_name)
 
         source_method = self.detect_method(filepath)
+        final_status = self.detect_final_status(filepath)
+
         records = ExcelParser.parse(filepath)
 
         for overlap, pvalue, fdr in records:
@@ -28,5 +36,6 @@ class UploadService:
                 overlap,
                 pvalue,
                 fdr,
-                source_method
+                source_method,
+                final_status
             )

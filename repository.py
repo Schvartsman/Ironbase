@@ -14,7 +14,8 @@ class GeneRepository:
             OverlapGenes TEXT,
             Pvalue FLOAT,
             FDR FLOAT,
-            SourceMethod VARCHAR(64)
+            SourceMethod VARCHAR(64),
+            FinalStatus VARCHAR(32)
         )
         """
         with self.db.get_connection() as conn:
@@ -29,11 +30,12 @@ class GeneRepository:
         pvalue: float,
         fdr: float,
         sourcemethod: str
+        finalstatus: str
     ) -> None:
         query = f"""
         INSERT INTO `{table_name}`
-        (OverlapGenes, Pvalue, FDR, SourceMethod)
-        VALUES (%s, %s, %s, %s)
+        (OverlapGenes, Pvalue, FDR, SourceMethod, FinalStatus)
+        VALUES (%s, %s, %s, %s, %s)
         """
 
         with self.db.get_connection() as conn:
@@ -47,7 +49,7 @@ class GeneRepository:
         gene: str
     ) -> List[Tuple]:
         query = f"""
-        SELECT OverlapGenes, Pvalue, FDR, SourceMethod
+        SELECT OverlapGenes, Pvalue, FDR, SourceMethod, FianlStatus)
         FROM `{table_name}`
         WHERE OverlapGenes LIKE %s
         """
