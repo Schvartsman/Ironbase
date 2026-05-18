@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from typing import List, Tuple
+from pathlib import Path
 import pandas as pd
 
 
@@ -29,3 +30,11 @@ class ExcelParser:
             )
 
         return records
+
+    def detect_age_group(path:str) -> str:
+        parts=[p.lower() for p in Path(path).parts]
+        if any("pediatric" in p for p in parts):
+            return "Pediatric"
+        if any("adult" in p for p in parts):
+            return "Adult"
+        return NULL
