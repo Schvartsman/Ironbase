@@ -97,9 +97,18 @@ class SearchWindow(tk.Toplevel):
             self.result_box.delete("1.0", tk.END)
 
             for row in results:
+                overlap, pvalue, fdr, source_method, final_status, age_group=row
                 self.result_box.insert(
                     tk.END,
-                    f"{row}\n"
+                    (
+                        f"Genes: {overlap}\n"
+                        f"Pvalue: {pvalue}\n"
+                        f"FDR: {fdr}\n"
+                        f"Source method: {source_method}\n"
+                        f"Final status: {final_status}\n"
+                        f"Age group: {age_group}\n"
+                        f"{'-' * 40}\n"
+                    )
                 )
 
         except Exception as e:

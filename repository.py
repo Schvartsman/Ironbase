@@ -30,8 +30,9 @@ class GeneRepository:
         overlap_genes: str,
         pvalue: float,
         fdr: float,
-        sourcemethod: str
-        finalstatus: str
+        sourcemethod: str,
+        finalstatus: str,
+        agegoup: str
     ) -> None:
         query = f"""
         INSERT INTO `{table_name}`
@@ -41,7 +42,7 @@ class GeneRepository:
 
         with self.db.get_connection() as conn:
             cursor = conn.cursor()
-            cursor.execute(query, (overlap_genes, pvalue, fdr, sourcemethod))
+            cursor.execute(query, (overlap_genes, pvalue, fdr, sourcemethod, finalstatus, agegroup))
             conn.commit()
 
     def search_by_gene(
@@ -50,7 +51,7 @@ class GeneRepository:
         gene: str
     ) -> List[Tuple]:
         query = f"""
-        SELECT OverlapGenes, Pvalue, FDR, SourceMethod, FinalStatus, AgeGroup)
+        SELECT OverlapGenes, Pvalue, FDR, SourceMethod, FinalStatus, AgeGroup
         FROM `{table_name}`
         WHERE OverlapGenes LIKE %s
         """

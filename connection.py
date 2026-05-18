@@ -6,7 +6,7 @@ from config import DBConfig
 class Database:
     def __init__(self, config: DBConfig):
         self.pool = pooling.MySQLConnectionPool(
-            pool_name="wolf_pool",
+            pool_name="ironbase_pool",
             pool_size=5,
             host=config.host,
             user=config.user,

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from Pathlib import Path
+from pathlib import Path
 
 from db.repository import GeneRepository
 from services.excel_parser import ExcelParser
@@ -37,5 +37,6 @@ class UploadService:
                 pvalue,
                 fdr,
                 source_method,
-                final_status
+                final_status,
+                age_group
             )

@@ -3,7 +3,9 @@ import logging
 
 
 def setup_logger() -> logging.Logger:
-    logger = logging.getLogger("wolf_app")
+    logger = logging.getLogger("ironbase")
+    if logger.handlers:
+        return logger
     logger.setLevel(logging.INFO)
 
     handler = logging.StreamHandler()

@@ -16,5 +16,5 @@ def load_config() -> DBConfig:
         host=os.getenv("DB_HOST", "localhost"),
         user=os.getenv("DB_USER"),
         password=os.getenv("DB_PASSWORD"),
-        database=os.getenv("DB_NAME", "testing"),
+        database=os.getenv("DB_NAME", "ironbase"),
     )

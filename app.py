@@ -16,7 +16,7 @@ class App(tk.Tk):
         self.upload_service = upload_service
         self.repository = repository
 
-        self.title("Wolf Database Manager")
+        self.title("Iron Database Manager")
         self.geometry("400x250")
 
         self._build_ui()
