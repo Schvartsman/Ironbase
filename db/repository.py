@@ -7,7 +7,7 @@ class GeneRepository:
     def __init__(self, db):
         self.db = db
 
-    def create_table(self, table_name: str) -> None:
+    def create_table(self, tname: str) -> None:
         query = f"""
         CREATE TABLE IF NOT EXISTS `{table_name}` (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -26,8 +26,8 @@ class GeneRepository:
 
     def insert_row(
         self,
-        table_name: str,
-        overlap_genes: str,
+        tname: str,
+        overlap: str,
         pvalue: float,
         fdr: float,
         sourcemethod: str,
@@ -42,12 +42,12 @@ class GeneRepository:
 
         with self.db.get_connection() as conn:
             cursor = conn.cursor()
-            cursor.execute(query, (overlap_genes, pvalue, fdr, sourcemethod, finalstatus, agegroup))
+            cursor.execute(query, (overlapgenes, pvalue, fdr, sourcemethod, finalstatus, agegroup))
             conn.commit()
 
     def search_by_gene(
         self,
-        table_name: str,
+        tname: str,
         gene: str
     ) -> List[Tuple]:
         query = f"""
@@ -60,3 +60,11 @@ class GeneRepository:
             cursor = conn.cursor()
             cursor.execute(query, (f"%{gene}%",))
             return cursor.fetchall()
+
+    def list_tables(self) -> List[str]:
+        query = "SHOW TABLES"
+
+        with self.db.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(query)
+            return [row[0] for row in cursor.fetchall()]

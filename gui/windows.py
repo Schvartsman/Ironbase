@@ -43,7 +43,7 @@ class UploadWindow(tk.Toplevel):
 
         try:
             self.upload_service.upload_file(
-                table_name,
+                tname,
                 filepath
             )
             messagebox.showinfo("Success", "Upload completed")
@@ -81,7 +81,7 @@ class SearchWindow(tk.Toplevel):
         self.result_box.pack(pady=10)
 
     def search(self):
-        table_name = self.table_entry.get().strip()
+        tname = self.table_entry.get().strip()
         gene = self.gene_entry.get().strip()
 
         if not table_name or not gene:
@@ -90,14 +90,14 @@ class SearchWindow(tk.Toplevel):
 
         try:
             results = self.repository.search_by_gene(
-                table_name,
+                tname,
                 gene
             )
 
             self.result_box.delete("1.0", tk.END)
 
             for row in results:
-                overlap, pvalue, fdr, source_method, final_status, age_group=row
+                overlap, pvalue, fdr, sourcemethod, finalstatus, agegroup=row
                 self.result_box.insert(
                     tk.END,
                     (

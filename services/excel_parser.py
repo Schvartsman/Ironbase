@@ -26,7 +26,7 @@ class ExcelParser:
                     str(row["OverlapGenes"]),
                     float(row["Pvalue"]),
                     float(row["FDR"]),
-                    age_group,
+                    agegroup,
                 )
             )
 

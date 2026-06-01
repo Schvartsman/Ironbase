@@ -32,11 +32,11 @@ class UploadService:
 
         for overlap, pvalue, fdr in records:
             self.repository.insert_row(
-                table_name,
+                tname,
                 overlap,
                 pvalue,
                 fdr,
-                source_method,
-                final_status,
-                age_group
+                sourcemethod,
+                finalstatus,
+                agegroup
             )
